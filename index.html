@@ -13,9 +13,9 @@
         <header>
             <p id="highscores">View high Scores</p>
             <h1>Timed JavaScript Quiz</h1>
-            <p id="timer">Time: <span id="time">200</span> Seconds</p>
+            <p id="timer">Time: <span id="time">20</span> Seconds</p>
         </header>
-        <main class="card" data-state="hidden">
+        <main class="card">
             <div class="card-header">
                 <!--quiz rules-->
                 <p>Quiz consists of 10 questions.</p>
@@ -23,19 +23,15 @@
                 <p>However! For every wrong answer, 10 seconds will be deducted from the timer!</p>
                 <h2>Click Start button to begin quiz!</h2>
             </div>
-            <div class="card-body">
-                <form action="/quiz" method="post" id="questionform">
-                    <div class="question">
-                        <label for="question">question text<!-- Question here --></label>
-                        <input type="button" name="option" id="option-1" value="option-1"><!-- Answer option in value-->
-                        <input type="button" name="option" id="option-2" value="option-2">
-                        <input type="button" name="option" id="option-3" value="option-3">
-                        <input type="button" name="option" id="option-4" value="option-4">
-                    </div>
-                </form>
+            <div class="card-body" id="question/answer">
+                <p id="question">question</p>
+                <button class="questionButton" id="A" onclick="checkanswer()">option1</button>
+                <button class="questionButton" id="B" onclick="checkanswer()">opiton2</button>
+                <button class="questionButton" id="C" onclick="checkanswer()">option3</button>
+                <button class="questionButton" id="D" onclick="checkanswer()">option4</button>
             </div>
-            <div class="card-footer">
-                <p class="feedback">
+            <div class="card-footer" id="cardfooter">
+                <p class="feedback" id="feedback">
                     Right or wrong
                 </p>
             </div>

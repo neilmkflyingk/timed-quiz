@@ -25,6 +25,14 @@ header h1 {
     text-align: center;
 }
 
+#cardfooter {
+    display: none;
+}
+
+
+
+
+
 #time {
     color: red;
 }
@@ -55,27 +63,21 @@ header h1 {
     justify-content: center;
 }*/
 
-.question {
+#question {
     display: flex;
     /* border: solid green 2px;*/
-    flex-direction: column;
-    align-content: center;
-    margin-bottom: 30px;
-}
-
-.question label {
-    /* border: solid yellow 2px;*/
+    text-align: center;
     margin: 5px;
     font-size: 20px;
-    text-align: center;
 }
 
-.question input {
-    /* border: solid red 2px;*/
+.questionButton {
     width: fit-content;
     background-color: aqua;
     margin: 5px;
+    border-radius: 12px;
 }
+
 
 
 .card-footer {
