@@ -7,10 +7,11 @@ const option3El = document.getElementById("C");
 const option4El = document.getElementById("D");
 const questionForm = document.getElementById("question/answer")
 const instructions = document.querySelector(".card-header")
+const queContainerEl = document.querySelector(".question-container");
 
 var timer;
 var timeLeft = 20;
-
+var questionIndex;
 
 const q1 = {
     question: "Which of the following is not a primitive data type in JavaScript?",
@@ -18,7 +19,7 @@ const q1 = {
     optionB: "(B) Number",
     optionC: "(C) Boolean",
     optionD: "(D) Object",
-    Answer: "optionD",
+    Answer: "D",
 }
 const q2 = {
     question: "Which of the following is the correct syntax to declare a variable in JavaScript?",
@@ -26,7 +27,7 @@ const q2 = {
     optionB: "(B) let variableName = value;",
     optionC: "(C) const variableName = value;",
     optionD: "(D) all of the above",
-    Answer: "optionD"
+    Answer: "D"
 }
 const q3 = {
     question: "Which of the following is the correct syntax to call a function in JavaScript?",
@@ -115,30 +116,39 @@ function wrongChoice() {
 function scoreTracker() {
 
 }
-function checkAnswer() {
-    for ( j = 0; j > questions.length; j++) {
-        if(j.Answer == true) {
-            console.log("yay")
-        } else {
-            console.log("too bad")
-        };
-    };
+function checkAnswer(event) {
+    var userOption = event.target;
+    console.log(userOption);
+    if (userOption.matches("button")) {
+        let attrSelection = userOption.getAttribute("id")
+        console.log(attrSelection)
+  //logic for right or wrong ans 
+        if(attrSelection == questions[questionIndex].Answer){
+            console.log("correct ans ");
+        }else{
+            console.log("wrong selection");
+        }
+    }
+
+    questionIndex++;
     renderQuestion();
     
 }
 function renderQuestion() {
-    questionEl.textContent = q1.question;
-    option1El.textContent = q1.optionA;
-    option2El.textContent = q1.optionB;
-    option3El.textContent = q1.optionC;
-    option4El.textContent = q1.optionD;
-    /*for ( i = 0; i > questions.length; i++) {
-        questionEl.textContent = i.question;
-        option1El.textContent = i.optionA;
-        option2El.textContent = i.optionB;
-        option3El.textContent = i.optionC;
-        option4El.textContent = i.optionD;
-    };*/
+    // questionEl.textContent = q1.question;
+    // option1El.textContent = q1.optionA;
+    // option2El.textContent = q1.optionB;
+    // option3El.textContent = q1.optionC;
+    // option4El.textContent = q1.optionD;
+    //for ( let i = 0; i < questions.length; i++) {
+        console.log("Que Index",  questionIndex )
+        questionEl.textContent = questions[questionIndex].question;
+        option1El.textContent = questions[questionIndex].optionA;
+        option2El.textContent = questions[questionIndex].optionB;
+        option3El.textContent = questions[questionIndex].optionC;
+        option4El.textContent = questions[questionIndex].optionD;
+       // checkAnswer();
+    //};
     
     //checkAnswer();
 }
@@ -169,10 +179,12 @@ function startTimer() {
 };
 // starts/ends timer (calls first question) 
 function startquiz() {
-    startEl.disabled = true;
+    console.log("start-quiz");
+    //startEl.disabled = true;
     startTimer();
     instructions.style.display = "none";
     startEl.style.display = "none";
+    questionIndex=0;
     renderQuestion();
 };
 
@@ -181,6 +193,7 @@ function startquiz() {
 
 
 startEl.addEventListener("click", startquiz);
+queContainerEl.addEventListener("click", checkAnswer);
 
 
 
