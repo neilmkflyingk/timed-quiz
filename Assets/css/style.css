@@ -50,17 +50,15 @@ header h1 {
     text-align: center;
 }
 
-.card-body {
+.question-container {
     /*border: solid blue 2px; */
     flex-direction: column;
-    display: flex;
+    display: none;
     width: 50%;
     align-items: center;
 }
 
-.question-container {
-    
-}
+
 
 /* #questionform {
     display: flex;
@@ -85,16 +83,12 @@ header h1 {
 
 
 .card-footer {
-    /* border: solid black 2px;*/
+    font-size: 30px;
     display: flex;
     width: 75%;
     justify-content: center;
-    border-top: solid black 4px
 }
 
-.feedback {
-    font-size: 30px;
-}
 
 .startbtn {
     color: black;
