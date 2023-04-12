@@ -5,15 +5,28 @@ const option1El = document.getElementById("A");
 const option2El = document.getElementById("B");
 const option3El = document.getElementById("C");
 const option4El = document.getElementById("D");
-const questionForm = document.getElementById("question/answer");
+//const questionForm = document.getElementById("question/answer");
 const instructions = document.querySelector(".card-header");
 const queContainerEl = document.querySelector(".question-container");
 const feedbackEl = document.querySelector("#feedback");
+const finalScoreEl = document.querySelector("#finalScore");
+const highScoresEl = document.querySelector("#highScores");
+const overlaySave = document.querySelector("#saveScore");
+const overlayScores = document.querySelector("#highScores");
+const overlayContainer = document.querySelector(".container");
+const saveBttn = document.querySelector("#saveBttn");
+const input = document.querySelector("#initials");
+const isEmpty = str => !str.trim().length;
+const initials = input.value;
 
+var userScore = initials + ", " + score;
 var timer;
+
 var timeLeft = 100;
 var questionIndex;
 var score = 0;
+var allScores = [];
+
 
 const q1 = {
     question: "Which of the following is not a primitive data type in JavaScript?",
@@ -100,50 +113,100 @@ var questions = [q1, q2, q3, q4, q5, q6, q7, q8, q9, q10];
 
 
 
+function highScores() {
+    
+}
 
 
+
+function saveScore() {
+    queContainerEl.style.display = "none";
+    localStorage.entries = userScore;
+    allScores.push(userScore);
+    location.reload();
+}
+
+
+
+function saveOn () {
+    overlaySave.style.opacity = "1";
+    queContainerEl.style.display = "none";
+    overlayContainer.style.display = "flex";
+    finalScoreEl.textContent = score;
+}
+
+function saveOff () {
+    overlaySave.style.opacity = "0";
+    queContainerEl.style.display = "flex";
+    queContainerEl.style.display = "none";
+}
+
+function scoresOn() {
+    overlayScores.style.opacity = "1";
+    queContainerEl.style.display = "none";
+    queContainerEl.style.display = "flex";
+}
+
+function scoresOff() {
+    overlayScores.style.opacity = "0";
+    queContainerEl.style.display = "flex";
+    queContainerEl.style.display = "none";
+}
 
 function endgame() {
-    console.log("endgame")
+    console.log("endgame");
     timeEl.textContent = "---";
-}
-
-function renderOptions() {
+    saveOn();
 
 }
 
-function correctChoice() {
-
+function correctanswer() {
+    feedbackEl.textContent = "Correct!";
+    setTimeout(function() {
+        feedbackEl.style.display = "none"
+    }, 1000);
+    console.log("correct ans");
+    feedbackEl.textContent = "Correct!";
+    score++
+    console.log("score", score);
 }
 
-function wrongChoice() {
-
+function wrongAnswer() {
+    feedbackEl.textContent = "Wrong";
+    setTimeout(function() {
+        feedbackEl.style.display = "none"
+    }, 1000);
+    console.log("wrong ans");
+    timeLeft-=10;
 }
 
-function scoreTracker() {
-
+function lastQuestion() {
+    if (questionIndex == 9) {
+    clearInterval(timer);
+    timeEl.textContent = "---";
+    endgame()
+    } else {
+    questionIndex++;
+    renderQuestion();
+    }
 }
 
 function checkAnswer(event) {
     var userOption = event.target;
-    console.log(userOption);
+    console.log("userOption", userOption);
     if (userOption.matches("button")) {
         let attrSelection = userOption.getAttribute("id")
         console.log(attrSelection)
-  //logic for right or wrong ans 
+        //logic for right or wrong ans 
         if(attrSelection == questions[questionIndex].Answer){
-            console.log("correct ans");
-            feedbackEl.textContent = "Correct!";
-            score++
-            console.log("score", score);
+            feedbackEl.style.display = "flex";
+            correctanswer();
         }else{
-            console.log("wrong ans");
-            feedbackEl.textContent = "Wrong";
-            timeLeft-=10;
+            feedbackEl.style.display = "flex";
+            wrongAnswer();
         }
     }
-    questionIndex++;
-    renderQuestion();
+    lastQuestion();
 }
 
 function renderQuestion() {
@@ -153,24 +216,24 @@ function renderQuestion() {
     option2El.textContent = questions[questionIndex].optionB;
     option3El.textContent = questions[questionIndex].optionC;
     option4El.textContent = questions[questionIndex].optionD;
-    // if (questionIndex=10) {
-    //     endgame()
-    // };
-};
+    
+}
 
 function timeOut() {
     timeEl.textContent = "---";
     clearInterval(timer);
-    confirm("You are out of time. Click ok to see your score.");
+    alert("You are out of time. Click ok to see your score.");
     // Actions once time is out
     if (confirm == true) {
         endgame();
     };
 };
+
 // called when page loads for highscores from local storage
 function init() {
     getscores();
 }
+
 // starts timer
 function startTimer() {
     timer = setInterval(function() {
@@ -201,8 +264,7 @@ function startquiz() {
 
 startEl.addEventListener("click", startquiz);
 queContainerEl.addEventListener("click", checkAnswer);
-
-
+saveBttn.addEventListener("click", saveScore)
 
 
 

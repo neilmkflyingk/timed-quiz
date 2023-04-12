@@ -15,7 +15,7 @@ header {
     flex-flow: row wrap;
 }
 
-#highscores {
+#scores {
     margin: 10px;
     color: blue;
 }
@@ -58,13 +58,6 @@ header h1 {
     align-items: center;
 }
 
-
-
-/* #questionform {
-    display: flex;
-    justify-content: center;
-}*/
-
 #question {
     display: flex;
     /* border: solid green 2px;*/
@@ -95,4 +88,35 @@ header h1 {
     background-color: red;
     font-size: 40px;
     margin-top: 50px;
+}
+
+.container {
+    width: 100%;
+    height: auto;
+    display: none;
+    flex-direction: column;
+}
+
+.overlaySave {
+    opacity: 0;
+    background: rgba(0, 0, 0, 0.75);
+    width: 100%;
+    height: auto;
+    transition: .5s ease;
+    color: white;
+    font-size: 20px;
+    padding: 20px;
+    text-align: center;
+}
+
+.overlayScores {
+    opacity: 0;
+    background: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: auto;
+    transition: .5s ease;
+    color: white;
+    font-size: 20px;
+    padding: 20px;
+    text-align: center;
 }
