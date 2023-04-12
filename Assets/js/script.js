@@ -5,28 +5,17 @@ const option1El = document.getElementById("A");
 const option2El = document.getElementById("B");
 const option3El = document.getElementById("C");
 const option4El = document.getElementById("D");
-//const questionForm = document.getElementById("question/answer");
 const instructions = document.querySelector(".card-header");
 const queContainerEl = document.querySelector(".question-container");
 const feedbackEl = document.querySelector("#feedback");
 const finalScoreEl = document.querySelector("#finalScore");
-const highScoresEl = document.querySelector("#highScores");
 const overlaySave = document.querySelector("#saveScore");
 const overlayScores = document.querySelector("#highScores");
 const overlayContainer = document.querySelector(".container");
 const saveBttn = document.querySelector("#saveBttn");
 const input = document.querySelector("#initials");
-const isEmpty = str => !str.trim().length;
-
-
-
-var timer;
-
-var timeLeft = 100;
-var questionIndex;
-var score = 0;
-var allScores = [];
-
+const viewHighScoresEl = document.querySelector("#scores");
+const scoresList = document.querySelector("#scoresList");
 
 const q1 = {
     question: "Which of the following is not a primitive data type in JavaScript?",
@@ -109,28 +98,45 @@ const q10 = {
     Answer: "D"
 }
 
+var timer;
+var timeLeft = 100;
+var questionIndex;
+var score = 0;
+var allscores = [];
 var questions = [q1, q2, q3, q4, q5, q6, q7, q8, q9, q10];
 
-
-
-function highScores() {
-    
+function storeEntries() {
+    localStorage.setItem("entries", JSON.stringify(allscores));
 }
 
+function init() {
+    var storedScores = JSON.parse(localStorage.getItem("entries"));
+    if (storedScores !== null) {
+        allscores = storedScores
+    }
+    renderScores();
+}
 
+// Render a new li for each score entered
+function renderScores() {
+    for (var i = 0; i < allscores.length; i++) {
+      var entry = allscores[i];
+      var li = document.createElement("li");
+      li.textContent = entry;
+      li.setAttribute("data-index", i);
+      scoresList.appendChild(li);
+    }
+  }
 
-function saveScore() {
-    queContainerEl.style.display = "none";
-    allScores.push(userScore);
-    location.reload();
+// saves initials and score,
+saveBttn.addEventListener("click", function(event) {
+    event.preventDefault
     var initialsInput = input.value;
     var userScore = initialsInput + " " + score;
-    localStorage.initials = initialsInput;
-    localStorage.points = score;
-    localStorage.entry = userScore;
-}
-
-
+    allscores.push(userScore);
+    storeEntries();
+    location.reload();
+});
 
 function saveOn () {
     overlaySave.style.opacity = "1";
@@ -139,29 +145,21 @@ function saveOn () {
     finalScoreEl.textContent = score;
 }
 
-function saveOff () {
-    overlaySave.style.opacity = "0";
-    queContainerEl.style.display = "flex";
-    queContainerEl.style.display = "none";
-}
-
 function scoresOn() {
     overlayScores.style.opacity = "1";
     queContainerEl.style.display = "none";
-    queContainerEl.style.display = "flex";
+    overlayContainer.style.display = "flex";
 }
 
 function scoresOff() {
     overlayScores.style.opacity = "0";
-    queContainerEl.style.display = "flex";
-    queContainerEl.style.display = "none";
+    overlayContainer.style.display = "none";
 }
 
 function endgame() {
     console.log("endgame");
     timeEl.textContent = "---";
     saveOn();
-
 }
 
 function correctanswer() {
@@ -201,7 +199,6 @@ function checkAnswer(event) {
     if (userOption.matches("button")) {
         let attrSelection = userOption.getAttribute("id")
         console.log(attrSelection)
-        //logic for right or wrong ans 
         if(attrSelection == questions[questionIndex].Answer){
             feedbackEl.style.display = "flex";
             correctanswer();
@@ -220,23 +217,16 @@ function renderQuestion() {
     option2El.textContent = questions[questionIndex].optionB;
     option3El.textContent = questions[questionIndex].optionC;
     option4El.textContent = questions[questionIndex].optionD;
-    
 }
 
 function timeOut() {
     timeEl.textContent = "---";
     clearInterval(timer);
     alert("You are out of time. Click ok to see your score.");
-    // Actions once time is out
     if (confirm == true) {
         endgame();
     };
 };
-
-// called when page loads for highscores from local storage
-function init() {
-    getscores();
-}
 
 // starts timer
 function startTimer() {
@@ -258,17 +248,14 @@ function startquiz() {
     queContainerEl.style.display = "flex";
     instructions.style.display = "none";
     startEl.style.display = "none";
+    viewHighScoresEl.style.opacity = 0;
     questionIndex=0;
     renderQuestion();
+    scoresOff();
 };
-
-
-
-
 
 startEl.addEventListener("click", startquiz);
 queContainerEl.addEventListener("click", checkAnswer);
-saveBttn.addEventListener("click", saveScore)
+viewHighScoresEl.addEventListener("click", scoresOn);
 
-
-
+init()
