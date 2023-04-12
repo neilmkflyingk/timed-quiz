@@ -11,30 +11,42 @@
 
     <body>
         <header>
-            <p id="highscores">View high Scores</p>
+            <p id="scores">View high Scores</p>
             <h1>Timed JavaScript Quiz</h1>
-            <p id="timer">Time: <span id="time">20</span> Seconds</p>
+            <p id="timer">Time: <span id="time">100</span> Seconds</p>
         </header>
         <main class="card">
-            <div class="card-header">
-                <!--quiz rules-->
-                <p>Quiz consists of 10 questions.</p>
-                <p>You will have 200 seconds to complete the quiz.</p>
-                <p>However! For every wrong answer, 10 seconds will be deducted from the timer!</p>
-                <h2>Click Start button to begin quiz!</h2>
-            </div>
-            <div class="card-body question-container" id="question/answer">
-                <p id="question">question</p>
-                <button class="questionButton" id="A" >option1</button>
-                <button class="questionButton" id="B" >opiton2</button>
-                <button class="questionButton" id="C" >option3</button>
-                <button class="questionButton" id="D" >option4</button>
-            </div>
-            <div class="card-footer" id="cardfooter">
-                <p class="feedback" id="feedback">
-                    Right or wrong
-                </p>
-            </div>
+                <div class="card-header">
+                    <!--quiz rules-->
+                    <p>Quiz consists of 10 questions.</p>
+                    <p>You will have 200 seconds to complete the quiz.</p>
+                    <p>However! For every wrong answer, 10 seconds will be deducted from the timer!</p>
+                    <h2>Click Start button to begin quiz!</h2>
+                </div>
+                <div class="card-body question-container" id="question/answer">
+                    <p id="question">question</p>
+                    <button class="questionButton" id="A" >option1</button>
+                    <button class="questionButton" id="B" >opiton2</button>
+                    <button class="questionButton" id="C" >option3</button>
+                    <button class="questionButton" id="D" >option4</button>
+                </div>
+                <div class="container">
+                    <div id="saveScore" class="overlaySave">
+                        <h2>Save your score!</h2>
+                        <p id="finalScore"></p><!--Score-->
+                        <label for="initials">Enter your initials</label>
+                        <input name="initials" type="text" id="initials" value="">
+                        <button id="saveBttn">Save</button>
+                    </div>
+                    <div id="highScores" class="overlayScores">
+                        <h2>High Scores</h2>
+                        <ul id="scoresList">
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <p id="feedback"></p>
+                </div>
         </main>
         <footer>
             <button id="start" class="startbtn">Start Quiz</button>
