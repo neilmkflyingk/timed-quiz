@@ -17,9 +17,9 @@ const overlayContainer = document.querySelector(".container");
 const saveBttn = document.querySelector("#saveBttn");
 const input = document.querySelector("#initials");
 const isEmpty = str => !str.trim().length;
-const initials = input.value;
 
-var userScore = initials + ", " + score;
+
+
 var timer;
 
 var timeLeft = 100;
@@ -121,9 +121,13 @@ function highScores() {
 
 function saveScore() {
     queContainerEl.style.display = "none";
-    localStorage.entries = userScore;
     allScores.push(userScore);
     location.reload();
+    var initialsInput = input.value;
+    var userScore = initialsInput + " " + score;
+    localStorage.initials = initialsInput;
+    localStorage.points = score;
+    localStorage.entry = userScore;
 }
 
 
