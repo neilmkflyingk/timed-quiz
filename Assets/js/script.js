@@ -1,22 +1,38 @@
+// start button
 const startEl = document.getElementById("start");
+// time left number
 const timeEl = document.getElementById("time");
+// question text
 const questionEl = document.getElementById("question");
+// answer optons
 const option1El = document.getElementById("A");
 const option2El = document.getElementById("B");
 const option3El = document.getElementById("C");
 const option4El = document.getElementById("D");
+// game instruction text
 const instructions = document.querySelector(".card-header");
+// contains question and answer options
 const queContainerEl = document.querySelector(".question-container");
+// text containing right or wrong feedback
 const feedbackEl = document.querySelector("#feedback");
+// shows score in save window at end
 const finalScoreEl = document.querySelector("#finalScore");
+// save score window
 const overlaySave = document.querySelector("#saveScore");
+// high scores window
 const overlayScores = document.querySelector("#highScores");
+// contains save score and high score windows
 const overlayContainer = document.querySelector(".container");
+// save score button
 const saveBttn = document.querySelector("#saveBttn");
+// stores initials input by user
 const input = document.querySelector("#initials");
+// view high scores 'link'
 const viewHighScoresEl = document.querySelector("#scores");
+// list containing high scores
 const scoresList = document.querySelector("#scoresList");
 
+// question objects containing questions, options, and correct answer
 const q1 = {
     question: "Which of the following is not a primitive data type in JavaScript?",
     optionA: "(A) String",
@@ -105,10 +121,12 @@ var score = 0;
 var allscores = [];
 var questions = [q1, q2, q3, q4, q5, q6, q7, q8, q9, q10];
 
+// stores updated score list in localstorage
 function storeEntries() {
     localStorage.setItem("entries", JSON.stringify(allscores));
 }
 
+// calls stored score list and renders them to high score list
 function init() {
     var storedScores = JSON.parse(localStorage.getItem("entries"));
     if (storedScores !== null) {
@@ -117,7 +135,7 @@ function init() {
     renderScores();
 }
 
-// Render a new li for each score entered
+// Renders a new li for each score entered
 function renderScores() {
     for (var i = 0; i < allscores.length; i++) {
       var entry = allscores[i];
@@ -126,9 +144,11 @@ function renderScores() {
       li.setAttribute("data-index", i);
       scoresList.appendChild(li);
     }
-  }
+}
 
-// saves initials and score,
+// saves initials and score to scores list
+// calls storeEntries()
+// reloads page
 saveBttn.addEventListener("click", function(event) {
     event.preventDefault
     var initialsInput = input.value;
@@ -138,6 +158,9 @@ saveBttn.addEventListener("click", function(event) {
     location.reload();
 });
 
+// shows save score window
+// enters user score in window
+// hides question container
 function saveOn () {
     overlaySave.style.opacity = "1";
     queContainerEl.style.display = "none";
@@ -145,34 +168,42 @@ function saveOn () {
     finalScoreEl.textContent = score;
 }
 
+// shows high scores window
+// hides question container
 function scoresOn() {
     overlayScores.style.opacity = "1";
     queContainerEl.style.display = "none";
     overlayContainer.style.display = "flex";
 }
 
+// hides high score window
 function scoresOff() {
     overlayScores.style.opacity = "0";
     overlayContainer.style.display = "none";
 }
 
+// empties timer
+// calls saveOn()
 function endgame() {
     console.log("endgame");
     timeEl.textContent = "---";
     saveOn();
 }
 
+// shows correct feedback for 1 second
+// adds point to score
 function correctanswer() {
     feedbackEl.textContent = "Correct!";
     setTimeout(function() {
         feedbackEl.style.display = "none"
     }, 1000);
     console.log("correct ans");
-    feedbackEl.textContent = "Correct!";
     score++
     console.log("score", score);
 }
 
+// shows wrong feedback for 1 second
+// deducts 10 seconds from timer
 function wrongAnswer() {
     feedbackEl.textContent = "Wrong";
     setTimeout(function() {
@@ -182,6 +213,12 @@ function wrongAnswer() {
     timeLeft-=10;
 }
 
+// checks for end of questions
+// clears timer
+// calls endgame()
+// if not end of questions:
+// moves to next question index
+// calls renderQuestion()
 function lastQuestion() {
     if (questionIndex == 9) {
     clearInterval(timer);
@@ -193,6 +230,9 @@ function lastQuestion() {
     }
 }
 
+// checks for user click on option
+// checks if answer is right or wrong, calls appropriate function
+// calls last question
 function checkAnswer(event) {
     var userOption = event.target;
     console.log("userOption", userOption);
@@ -210,6 +250,7 @@ function checkAnswer(event) {
     lastQuestion();
 }
 
+// renders question and options from correct position in idex
 function renderQuestion() {
     console.log("Que Index",  questionIndex )
     questionEl.textContent = questions[questionIndex].question;
@@ -219,6 +260,9 @@ function renderQuestion() {
     option4El.textContent = questions[questionIndex].optionD;
 }
 
+// clears timer when out of time
+// alerts user
+// calls endgame()
 function timeOut() {
     timeEl.textContent = "---";
     clearInterval(timer);
@@ -241,7 +285,12 @@ function startTimer() {
     }, 1000);
 };
 
-// starts timer (calls first question) 
+// calls startTimer()
+// displays question container
+// hides instructions, start button, and high scores 'link'
+// sets question index to 0
+// calls renderQuestions
+// calls scoresOff()
 function startquiz() {
     console.log("start-quiz");
     startTimer();
