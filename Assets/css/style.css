@@ -14,6 +14,7 @@ header {
     flex-flow: row wrap;
 }
 
+/* high scores 'link' */
 #scores {
     margin: 10px;
     color: blue;
@@ -24,18 +25,22 @@ header h1 {
     text-align: center;
 }
 
+/* feedback */
 #cardfooter {
     display: none;
 }
 
+/* high scores */
 #scoresList {
     list-style: none;
 }
 
+/* timer count */
 #time {
     color: red;
 }
 
+/* main section of page */
 .card {
     width: 40%;
     display: flex;
@@ -43,10 +48,12 @@ header h1 {
     align-items: center;
 }
 
+/* instructions/rules */
 .card-header {
     text-align: center;
 }
 
+/* questions and options */
 .question-container {
     flex-direction: column;
     display: none;
@@ -61,6 +68,7 @@ header h1 {
     font-size: 20px;
 }
 
+/* answer options */
 .questionButton {
     width: fit-content;
     background-color: aqua;
@@ -68,6 +76,7 @@ header h1 {
     border-radius: 12px;
 }
 
+/* feedback container */
 .card-footer {
     font-size: 30px;
     display: flex;
@@ -82,6 +91,7 @@ header h1 {
     margin-top: 50px;
 }
 
+/* contains save score and high score overlays */
 .container {
     width: 100%;
     height: auto;
