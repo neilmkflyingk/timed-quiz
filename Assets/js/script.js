@@ -150,9 +150,13 @@ function renderScores() {
 // calls storeEntries()
 // reloads page
 saveBttn.addEventListener("click", function(event) {
-    event.preventDefault
-    var initialsInput = input.value;
+    event.preventDefault;
+    var initialsInput = input.value.trim();
     var userScore = initialsInput + " " + score;
+    if (initialsInput === "") {
+        alert("Must input initials to save score.")
+        return;
+    }
     allscores.push(userScore);
     storeEntries();
     location.reload();
@@ -266,9 +270,9 @@ function renderQuestion() {
 function timeOut() {
     timeEl.textContent = "---";
     clearInterval(timer);
-    alert("You are out of time. Click ok to see your score.");
-    if (confirm == true) {
-        endgame();
+    confirm("You ran out of time. Better luck next time.");
+    if (confirm) {
+        location.reload();
     };
 };
 
