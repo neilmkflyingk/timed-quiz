@@ -8,7 +8,6 @@ body {
 
 header {
     margin: 10px;
-    /*border: solid black 2px;*/
     display: flex;
     width: 90%;
     justify-content: space-between;
@@ -29,18 +28,15 @@ header h1 {
     display: none;
 }
 
-
 #scoresList {
     list-style: none;
 }
-
 
 #time {
     color: red;
 }
 
 .card {
-    /* border: solid black 2px;*/
     width: 40%;
     display: flex;
     flex-flow: column wrap;
@@ -48,12 +44,10 @@ header h1 {
 }
 
 .card-header {
-    /* border: solid black 2px;*/
     text-align: center;
 }
 
 .question-container {
-    /*border: solid blue 2px; */
     flex-direction: column;
     display: none;
     width: 50%;
@@ -62,7 +56,6 @@ header h1 {
 
 #question {
     display: flex;
-    /* border: solid green 2px;*/
     text-align: center;
     margin: 5px;
     font-size: 20px;
@@ -75,15 +68,12 @@ header h1 {
     border-radius: 12px;
 }
 
-
-
 .card-footer {
     font-size: 30px;
     display: flex;
     width: 75%;
     justify-content: center;
 }
-
 
 .startbtn {
     color: black;
